@@ -1,12 +1,17 @@
 import { useState, useCallback, useRef } from "react";
 import { streamChat, obtenerMensajesSesion } from "../api/agenteApi";
 
-const useChat = () => {
+const useChat = (options = {}) => {
+  const {
+    tokenOverride = null,
+    apiUrlOverride = null,
+    initialContextoModulo = null,
+  } = options;
   const [messages, setMessages] = useState([]);
   const [streaming, setStreaming] = useState(false);
   const [activeTool, setActiveTool] = useState(null);
   const [foundArticles, setFoundArticles] = useState([]);
-  const [contextoModulo, setContextoModulo] = useState(null);
+  const [contextoModulo, setContextoModulo] = useState(initialContextoModulo);
   const [sessionId, setSessionId] = useState(() => crypto.randomUUID());
   const controllerRef = useRef(null);
 
@@ -40,6 +45,8 @@ const useChat = () => {
         historial,
         sessionId,
         contexto_modulo: contextoModulo,
+        tokenOverride,
+        apiUrlOverride,
         signal: controller.signal,
         onTexto: (chunk) => {
           assistantContent += chunk;
@@ -110,7 +117,7 @@ const useChat = () => {
     } finally {
       controllerRef.current = null;
     }
-  }, [messages, streaming, sessionId, contextoModulo]);
+  }, [messages, streaming, sessionId, contextoModulo, tokenOverride, apiUrlOverride]);
 
   const clearChat = useCallback(() => {
     setMessages([]);

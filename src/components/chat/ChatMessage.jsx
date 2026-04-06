@@ -6,7 +6,7 @@ import SqlBlock from "./SqlBlock";
 import ArticleCards from "./ArticleCards";
 import CrearTicketDialog from "../../pages/tickets/CrearTicketDialog";
 
-const ChatMessage = ({ message, sessionId, previousUserMessage }) => {
+const ChatMessage = ({ message, sessionId, previousUserMessage, allowTickets = true }) => {
   const isUser = message.role === "user";
   const [ticketDialogOpen, setTicketDialogOpen] = useState(false);
 
@@ -133,7 +133,7 @@ const ChatMessage = ({ message, sessionId, previousUserMessage }) => {
           </Typography>
         )}
 
-        {!isUser && !message.loading && message.content && (
+        {allowTickets && !isUser && !message.loading && message.content && (
           <Box sx={{ mt: 1 }}>
             <Button
               size="small" variant="text" color="inherit"

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ARCA Widget Test</title>
+  </head>
+  <body style="font-family: sans-serif; padding: 24px">
+    <h1>ARCA Chat Widget - Test</h1>
+    <p>Usa esta página para validar el widget rápidamente.</p>
+
+    <label>Token:</label>
+    <input id="token" style="width: 480px" placeholder="pega tu x-token aquí" />
+    <button id="init">Iniciar widget</button>
+
+    <script src="/arca-chat-widget.js"></script>
+    <script>
+      document.getElementById("init").addEventListener("click", function () {
+        var token = document.getElementById("token").value;
+
+        window.ArcaChatWidget.init({
+          baseUrl: window.location.origin,
+          apiUrl: window.location.origin + "/api",
+          token: token,
+          contexto: "general",
+          startOpen: true,
+        });
+      });
+    </script>
+  </body>
+</html>
