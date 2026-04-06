@@ -7,6 +7,7 @@ import TecnicoRoute from "./TecnicoRoute";
 import MainLayout from "../layouts/MainLayout";
 import LoginPage from "../pages/LoginPage";
 import ChatPage from "../pages/ChatPage";
+import EmbedChatPage from "../pages/EmbedChatPage";
 import KnowledgeBasePage from "../pages/KnowledgeBasePage";
 import ArticleDetailPage from "../pages/ArticleDetailPage";
 import RadiografiaAppPage from "../pages/RadiografiaAppPage";
@@ -41,6 +42,7 @@ const AppRouter = () => {
           path="/login"
           element={isAuthenticated ? <Navigate to="/chat" /> : <LoginPage />}
         />
+        <Route path="/embed/chat" element={<EmbedChatPage />} />
         <Route
           path="/"
           element={

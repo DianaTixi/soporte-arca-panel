@@ -2,11 +2,12 @@ import axiosClient from "./axiosClient";
 
 const API_URL = import.meta.env.VITE_API_URL || "/api";
 
-export const streamChat = async ({ pregunta, historial, sessionId, contexto_modulo, signal, onTexto, onToolStart, onToolEjecutando, onArticulos, onFin, onError }) => {
-  const token = localStorage.getItem("token");
+export const streamChat = async ({ pregunta, historial, sessionId, contexto_modulo, tokenOverride, apiUrlOverride, signal, onTexto, onToolStart, onToolEjecutando, onArticulos, onFin, onError }) => {
+  const token = tokenOverride || localStorage.getItem("token");
+  const apiBase = apiUrlOverride || API_URL;
 
   try {
-    const response = await fetch(`${API_URL}/agente/chat`, {
+    const response = await fetch(`${apiBase}/agente/chat`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
